@@ -1,3 +1,4 @@
+import 'package:client/core/router/app_router.dart';
 import 'package:client/core/theme/theme.dart';
 import 'package:client/features/auth/repository/auth_local_repository.dart';
 import 'package:client/features/auth/view/pages/signin_page.dart';
@@ -14,18 +15,17 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return _EagerInitialization(
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: AppTheme.darkThemeMode,
-        // home: const SignupPage(),
-        home: const SigninPage(),
+        routerConfig: ref.watch(goRouterProvider),
       ),
     );
   }

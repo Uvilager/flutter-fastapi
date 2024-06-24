@@ -4,6 +4,7 @@ import 'package:client/features/auth/view/widgets/custom_formfield.dart';
 import 'package:client/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SigninPage extends ConsumerStatefulWidget {
   const SigninPage({super.key});
@@ -31,7 +32,7 @@ class _SigninPageState extends ConsumerState<SigninPage> {
         data: (data) {
           showSnackBar(
             context,
-            'Account created successfully! Please  login.',
+            'Successfully signed in!',
           );
           // Navigator.push(
           //   context,
@@ -76,17 +77,27 @@ class _SigninPageState extends ConsumerState<SigninPage> {
                 height: 10,
               ),
               AuthButton(
-                  text: 'Sign In',
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      ref.read(authViewModelProvider.notifier).signInUser(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          );
-                    } else {
-                      showSnackBar(context, 'Please fill all fields');
-                    }
-                  }),
+                text: 'Sign In',
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    ref.read(authViewModelProvider.notifier).signInUser(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                  } else {
+                    showSnackBar(context, 'Please fill all fields');
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextButton(
+                onPressed: () {
+                  context.go('/register');
+                },
+                child: const Text('Not registered? Sign Up'),
+              )
             ],
           ),
         ));

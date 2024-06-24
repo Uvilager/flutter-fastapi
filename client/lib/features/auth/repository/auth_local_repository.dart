@@ -8,9 +8,13 @@ class AuthLocalRepository {
 
   AuthLocalRepository(this.sharedPrefs);
 
-  Future<void> setToken() async {
-    sharedPrefs.setString('token', 'token');
-    //etc...
+  Future<void> setToken({required String? token}) async {
+    if (token == null) return;
+    await sharedPrefs.setString('x-auth-token', token);
+  }
+
+  Future<String?> getToken() async {
+    return sharedPrefs.getString('x-auth-token');
   }
 }
 

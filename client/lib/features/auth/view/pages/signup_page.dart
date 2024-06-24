@@ -5,6 +5,7 @@ import 'package:client/features/auth/view/widgets/custom_formfield.dart';
 import 'package:client/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SignupPage extends ConsumerStatefulWidget {
   const SignupPage({super.key});
@@ -49,7 +50,6 @@ class _SignupPageState extends ConsumerState<SignupPage> {
         loading: () {},
       );
     });
-    final repo = ref.watch(authViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(),
@@ -103,6 +103,15 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   }
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextButton(
+                onPressed: () {
+                  context.go('/');
+                },
+                child: const Text('Already have an account? Sign in'),
+              )
             ],
           ),
         ),

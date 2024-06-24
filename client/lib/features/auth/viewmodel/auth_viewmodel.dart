@@ -1,11 +1,12 @@
 import 'package:client/core/model/user_model.dart';
+import 'package:client/features/auth/repository/auth_local_repository.dart';
 import 'package:client/features/auth/repository/auth_remote_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_viewmodel.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AuthViewModel extends _$AuthViewModel {
   @override
   AsyncValue<UserModel>? build() {
@@ -51,11 +52,11 @@ class AuthViewModel extends _$AuthViewModel {
         ),
       Right(value: final r) => _loginSuccess(r),
     };
-    print(val);
+    print('auth viewmodel: $val');
   }
 
   AsyncValue<UserModel>? _loginSuccess(UserModel user) {
-    // set token
+    ref.read(authLocalRepositoryProvider).setToken(token: user.token);
     return state = AsyncValue.data(user);
   }
 }
